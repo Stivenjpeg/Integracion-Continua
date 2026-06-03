@@ -1,4 +1,4 @@
-name: Notificacion CI
+name: Notificacion 
 
 on:
   push:
