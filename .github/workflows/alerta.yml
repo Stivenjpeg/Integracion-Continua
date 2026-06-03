@@ -1,0 +1,29 @@
+name: Notificacion CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ejecutar Hola Mundo
+        run: node index.js
+
+      - name: Enviar notificacion a ntfy.sh
+        run: |
+          curl -H "Title: Nuevo despliegue" \
+               -H "Priority: high" \
+               -H "Tags: rocket,white_check_mark" \
+               -d "Se subio codigo a main en ${{ github.repository }} por ${{ github.actor }}" \
+               ntfy.sh/devops-itla
